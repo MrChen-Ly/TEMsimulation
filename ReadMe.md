@@ -28,5 +28,14 @@
 
 4.运行模拟主程序
 ------
-
+ * 1.将你需要进行模拟的cif文件放置在workpath\cif文件夹中
+ * 2.运行workpath\exe文件夹中的TEM_contral0104.exe文件
+ * 3.点击菜单栏中的“文件”中的“打开”
+ * 4.选择cif文件夹中需要进行模拟的cif文件
+ * 5.等待程序运行，出现读取到的a，b，c的取值
+ * 6.点击“运行”，进行参数设置
+ * 7.参数列表如图所示：<br>
+   分为文件命名部分：<br>
+   workpath:文件路径，默认为cif文件所在路径；<br>sub_workfolder：img文件夹中的子文件夹名称，默认为cif文件名。<br>cif_name:cif文件的名称<br>doc——name of save：文件保存是的命名，默认为cif文件名称
+ * 
 
