@@ -1,0 +1,32 @@
+'wav\SrTiO3_sl041.wav'
+90,90
+0.004383478,0.004383478
+300.                            ! [keV] primary electron energy                  
+0                               ! image output type                              
+img\dat\SrTiO3_Tilt_0.0_Tilta_0.0_Cs_-10000.0_Df_10.0_Tk_8.0_A1_0.0_A1a_0.0_A2_0.0_A2a_0.0_B2_0.0_B2a_0.0_Sod_2.8_virbx_0.010_virby_0.010_map.dat
+45,45
+0, 1., 1., 0.                   ! [switch, mean, cts/el., noise] image data type 
+1                               ! [switch] use image frame                       
+0.008690
+0.0, 0.0                        ! [pix, pix] image offset in wave frame          
+0.0
+1                               ! coherence model switch (1 ... 5)               
+1,2.800000
+1, 0.2
+1, 1., 'prm\MTF-US2k-300.mtf' 
+2,0.010,0.010,0.0
+10
+0.0 0.0 0.0 0.0
+1, 10.0, 0.
+2, 0.0,0.0 0.
+3, 0.0, 0.0 0.0
+4, 0.0, 0.0 0.0
+5, -10000.0, 0.
+6.0 0.0 0.0 0.0
+7.0 0.0 0.0 0.0
+8.0 0.0 0.0 0.0
+9.0 0.0 0.0 0.0
+2500.0 ,0.03 
+0., 0.                          ! [mrad] image objective aperture center         
+0                               ! number of parameter loops 
+ 

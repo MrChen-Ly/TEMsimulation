@@ -1,0 +1,41 @@
+'wav\DSO_001_300_sl.wav'     ! wave function file name                        
+360, 360                       ! [pix, pix] wave function samples               
+0.003176058,0.003176058               ! [nm/pix] wave function sampling rates          
+300.                            ! [keV] primary electron energy                  
+6                               ! image output type                              
+'img\DyScO3_135_2400_Cs_DF6_map.dat'           ! image output file name                         
+3600,3600                         ! [pix, pix] image samples                       
+0, 1., 1., 0.                   ! [switch, mean, cts/el., noise] image data type 
+1                               ! [switch] use image frame                       
+0.008690                        ! [nm/pix] image sampling rate                   
+0.0, 0.0                        ! [pix, pix] image offset in wave frame          
+0                            ! [deg] image frame rotation                     
+1                               ! coherence model switch (1 ... 5)               
+1, 2.8                          ! [switch, nm] focus-spread                      
+1, 0.24                          ! [switch, mrad] semi-convergence                
+1, 1., 'PRM\MTF-US2k-300.mtf'       ! [switch, scale, file name] detector MTF        
+1, 0.03, 0.03, 0.               ! [model, nm, nm, deg] vibration envelope        
+10                               ! number of image aberrations                    
+0.0 0.0 0.0 0.0		        !(index list: 0=image shift, 			
+1, 5.5, 0. 			!             1=defocus,c1 			
+2, 1.0, 0.			!             2=2-fold astigmatism,a1		
+3, 20.0, 0.0			!             3=coma,b2 			
+4, 20.0, 0.0			!             4=3-fold astigm.,	a2		
+5, -10000., 0.			!             5=CS,c3 				
+6.0 0.0 0.0 0.0		!             6=star aberration, 		
+7.0 0.0 0.0 0.0		!             7=4-fold astigm,			
+8.0 0.0 0.0 0.0		!             8=coma(5th),			
+9.0 0.0 0.0 0.0		!             9=3-lobe aberr., 	 
+250.                            ! [mrad] image objective aperture                
+0., 0.                          ! [mrad] image objective aperture center         
+2                               ! number of parameter loops (line 23)        
+1                               ! loop parameter class, 1 = aberration       
+1                               ! loop parameter index, 1 = defocus          
+1                               ! loop variation form,  1 = ramp             
+-10, 10, 10                   ! [nm, nm, number] loop range and samples    
+'unsused'                       ! loop string                                
+3                               ! loop parameter class, 3 = input wave files 
+1                               ! loop parameter index, ignored              
+1                               ! loop variation form,  1 = ramp             
+10.0, 100.0, 10                   ! [ID, ID, number] loop range and samples    
+'_sl'                           ! loop string, prefix before wave number     

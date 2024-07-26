@@ -1,0 +1,200 @@
+'[Microscope Parameters]'! !1
+1.0                       ! [mrad] illumination cone half-angle     ! STEM only! 2
+0.0                       ! [mrad] inner detection angle            ! STEM only! 3
+20.0                      ! [mrad] outer detection angle            ! STEM only! 4
+0, 'prm\detectors.prm'    ! flag and name of STEM detector file     ! STEM only! 5
+0.00196875                ! [nm] electron wavelength or [keV], energy! 6
+0.05                      ! [nm] geometrical source size (HWHM)     ! STEM only! 7
+3.00                      ! [nm] focus spread                       ! STEM only! 8
+2.0                       ! relative focus spread kernel width      ! STEM only! 9
+7                         ! focus spread kernel samples             ! STEM only! 10
+0                         ! number of probe aberrations             ! STEM only! 11
+'[Multislice Parameters]'!! 12
+0.000000                  ! [deg] object tilt X, stay below 5 deg !13
+0.000000                  ! [deg] object tilt Y, stay below 5 deg !14
+0.0                       ! [nm] horizontal scan frame offset       ! STEM only! 15
+0.0                       ! [nm] vertical scan frame offset         ! STEM only! 16
+1.0                       ! [nm] horizontal scan frame size         ! STEM only! 17
+1.0                       ! [nm] vertical scan frame size           ! STEM only! 18
+0.0                       ! [deg] scan frame rotation               ! STEM only! 19
+100                       ! horizontal scan frame samples           ! STEM only! 20
+100                       ! vertical scan frame samples             ! STEM only! 21
+0                         ! switch for partial temporal coherence   ! STEM only! 22
+0                         ! switch for partial spatial coherence    ! STEM only! 23
+1                         ! super-cell X repeat! 24
+1                         ! super-cell Y repeat! 25
+1                         ! super-cell Z repeat factor              ! Ignored! 26
+'slc\LAO'         ! phase grating files (without indices and extension)! 27
+2                        ! number of slice files to load! 28
+1                         ! number of frozen lattice variants per slice! 29
+1                         ! minimum number of FL variations averaged! 30
+1                         ! detector readout period in slices! 31
+52                        ! max. number of slices in the object! 32
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
+0                         ! slice ID
+1                         ! slice ID
