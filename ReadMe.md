@@ -37,5 +37,17 @@
  * 7.参数列表如图所示：<br>
    分为文件命名部分：<br>
    workpath:文件路径，默认为cif文件所在路径；<br>sub_workfolder：img文件夹中的子文件夹名称，默认为cif文件名。<br>cif_name:cif文件的名称<br>doc——name of save：文件保存是的命名，默认为cif文件名称
- * 
+ * 8.点击submit开始运行程序
+
+5.进行参数Loop
+-------
+* 1.运行setdata3.0.exe程序
+* 2.设置需要loop的参数区间与步长
+* 3.点击get parameter range 开始loop
+* 4.选择workpath的位置
+* 5.输入需要loop的cif文件的名称
+* 6.输入x,y的像素值(在上一次程序的monitor中有显示)
+* 7.输入晶胞参数的c值(以nm为单位)
+* 8.输入z方向上slice的数量
+  
 
