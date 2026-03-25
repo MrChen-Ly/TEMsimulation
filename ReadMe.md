@@ -9,12 +9,13 @@ The system automates the traditionally manual process of matching simulated imag
 
 - [Overview](#overview)
 - [Installation](#installation)
-- [Repository Structure](#repository-structure)
 - [Configuration](#configuration)
-- [Running the Pipeline](#running-the-pipeline)
 - [Output Files](#output-files)
 - [Key Parameters](#key-parameters)
 - [Demo](#demo)
+- [Repository Structure](#repository-structure)
+- [Running the Pipeline](#running-the-pipeline)
+- [H-Atom Position Refinement](#H-Atom-Position-Refinement)
 - [Users Without a Coding Background](#users-without-a-coding-background)
 - [Acknowledgements](#acknowledgements)
 - [Authors](#authors)
@@ -87,22 +88,6 @@ Python ≥ 3.8 is required.
 
 ---
 
-## Repository Structure (Demo)
-
-```
-example/
-├── main.py                                        ← One-click pipeline entry point
-├── Step1_TEMsimulation5.py                        ← Step 1: initial parameter test simulation
-├── Step2_setdata3.0with_deadline_vibration.py     ← Step 2: 14-parameter grid simulation
-├── Step3_imagecompare_ssim_value4.0.py            ← Step 3: image alignment and SSIM calculation
-├── Step4_ssim_dashboard.py                        ← Step 4: SSIM visualisation dashboard
-├── config.yaml                                    ← Step 1 instrument parameters
-├── config_STO.yaml                                ← Steps 2–5 sweep ranges (auto-written at startup)
-├── pipeline_state.json                            ← Auto-generated; stores best-known parameter values
-└── ReadMe.md
-```
-
----
 
 ## Configuration
 
@@ -145,38 +130,6 @@ COMPARE_HEIGHT  = 59                             # Crop height used for SSIM com
 ```
 
 ---
-
-## Running the Pipeline
-
-```bash
-cd /.../Workpath/example
-python main.py
-```
-
-The pipeline executes automatically without any further user input:
-
-```
-Step 1  Initial simulation test
-        Verifies working directory, .prm files, and instrument parameters
-        ↓
-INIT    Write physical parameter bounds to config_STO.yaml
-        Step sizes are auto-computed; Group 0 parameters are activated
-        ↓
-Iterations 1–6  (one full group cycle every 3 iterations):
-  Step 2  Grid simulation
-          Only the active group is swept; the other 10 parameters are fixed
-          at their current best-known values
-  Step 3  SSIM calculation
-          Each simulated image is phase-correlation-aligned to the reference,
-          cropped to the same size, then SSIM is computed
-  Step 4  Visualisation
-          1D SSIM-vs-parameter curves and 2D heatmaps are generated and saved
-  Step 5  Range narrowing
-          Best-SSIM parameter values are identified; the active group's search
-          range is halved and the step size halved for the next iteration
-        ↓
-FINAL   ssim_progression.png — cross-iteration SSIM improvement summary
-```
 
 ### Group-Rotation Grid Strategy
 
@@ -245,13 +198,13 @@ All located at the top of `main.py`; changes take effect immediately on the next
 | `Df` | 0 to 5 | nm |
 | `Tk` | 1 to 5 | nm |
 | `Tilt` | 0 to 5 | mrad |
-| `Tilta` | 0 to 360 | ° |
+| `Tilta` | 0 to 360 | deg |
 | `A1` | 0 to 1 | nm |
-| `A1a` | 0 to 360 | ° |
+| `A1a` | 0 to 360 | deg |
 | `A2` | 50 to 100 | nm |
-| `A2a` | 0 to 360 | ° |
+| `A2a` | 0 to 360 | deg |
 | `B2` | 50 to 100 | nm |
-| `B2a` | 0 to 360 | ° |
+| `B2a` | 0 to 360 | deg |
 | `Sod` | 2.5 (fixed) | nm |
 | `virbx` | 0 to 0.05 | nm |
 | `virby` | 0 to 0.05 | nm |
@@ -260,8 +213,54 @@ All located at the top of `main.py`; changes take effect immediately on the next
 
 ## Demo
 
-The `example/` directory contains a ready-to-run demonstration. To keep runtime short and make it easy to verify the setup, the demo uses **reduced parameter ranges and fewer iterations**. It is intended for confirming that the environment is configured correctly and does not represent the full search precision required for real experimental data.
+The **[example](Workpath/example)** directory contains a ready-to-run demonstration **[main.py](Workpath/example/main.py)**. To keep runtime short and make it easy to verify the setup, the demo uses **reduced parameter ranges and fewer iterations**. It is intended for confirming that the environment is configured correctly and does not represent the full search precision required for real experimental data.
+## Repository Structure (Demo)
 
+```
+example/
+├── main.py                                        ← One-click pipeline entry point
+├── Step1_TEMsimulation5.py                        ← Step 1: initial parameter test simulation
+├── Step2_setdata3.0with_deadline_vibration.py     ← Step 2: 14-parameter grid simulation
+├── Step3_imagecompare_ssim_value4.0.py            ← Step 3: image alignment and SSIM calculation
+├── Step4_ssim_dashboard.py                        ← Step 4: SSIM visualisation dashboard
+├── config.yaml                                    ← Step 1 instrument parameters
+├── config_STO.yaml                                ← Steps 2–5 sweep ranges (auto-written at startup)
+├── pipeline_state.json                            ← Auto-generated; stores best-known parameter values
+└── ReadMe.md
+```
+
+## Running the Demo
+
+```bash
+cd /.../Workpath/example
+python main.py
+```
+
+The pipeline executes automatically without any further user input:
+
+```
+Step 1  Initial simulation test
+        Verifies working directory, .prm files, and instrument parameters
+        ↓
+INIT    Write physical parameter bounds to config_STO.yaml
+        Step sizes are auto-computed; Group 0 parameters are activated
+        ↓
+Iterations 1–6  (one full group cycle every 3 iterations):
+  Step 2  Grid simulation
+          Only the active group is swept; the other 10 parameters are fixed
+          at their current best-known values
+  Step 3  SSIM calculation
+          Each simulated image is phase-correlation-aligned to the reference,
+          cropped to the same size, then SSIM is computed
+  Step 4  Visualisation
+          1D SSIM-vs-parameter curves and 2D heatmaps are generated and saved
+  Step 5  Range narrowing
+          Best-SSIM parameter values are identified; the active group's search
+          range is halved and the step size halved for the next iteration
+        ↓
+FINAL   ssim_progression.png — cross-iteration SSIM improvement summary
+```
+---
 ### H-Atom Position Refinement
 
 `example/Hchange/` provides an example of structural refinement focused on H-atom positions. This can be run after the main parameter convergence to further optimise atomic coordinates.
