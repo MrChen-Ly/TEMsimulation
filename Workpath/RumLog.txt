@@ -1,0 +1,27 @@
+
+ +---------------------------------------------------+
+ | Program: [wavimg]                                 |
+ | Version: 1.0.3 64-bit  -  2022 Dec  20  -         |
+ | Author : Dr. J. Barthel, ju.barthel@fz-juelich.de |
+ |          Forschungszentrum Juelich GmbH, GERMANY  |
+ | License: GNU GPL 3 <http://www.gnu.org/licenses/> |
+ +---------------------------------------------------+
+
+Loading parameters from file [prm\wavimg_STO001Oshift2H.prm].
+Finished loading parameters.
+- internal array size:   256
+Parameters checked successfully.
+Loading mtf from file [prm\MTF-US2k-300.mtf].
+Finished loading of mtf.
+Extracting noise transfer function.
+Loading wave function data from file [wav\STO001Oshift2H_sl010.wav].
+Creating TEM image from wave.
+Image calculation by explicit focal integration.
+0-----------------------------------------------------------1
+************************************************************* 
+Extracting image frame data.
+Applying envelopes to image data.
+Saving image data to file [img\18\dat\STO001Oshift2H_Tilt_7.5_Tilta_45.0_Cs_0.0_Df_3.125_Tk_1.0_A1_0.0_A1a_270.0_A2_25.0_A2a_90.0_B2_90.0_B2a_50.0_Sod_2.5_virbx_0.051_virby_0.063_map.dat].
+Data format: 32-bit float
+Finished all calculations.
+Number of warnings:   0,  number of errors:   0.

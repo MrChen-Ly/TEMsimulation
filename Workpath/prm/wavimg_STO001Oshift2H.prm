@@ -1,0 +1,32 @@
+'wav\STO001Oshift2H_sl010.wav'
+178,180
+0.004354090,0.004324444
+300.
+0                               ! image output type                              
+img\18\dat\STO001Oshift2H_Tilt_7.5_Tilta_45.0_Cs_0.0_Df_3.125_Tk_1.0_A1_0.0_A1a_270.0_A2_25.0_A2a_90.0_B2_90.0_B2a_50.0_Sod_2.5_virbx_0.051_virby_0.063_map.dat
+89,90
+0, 1., 1., 0.                   ! [switch, mean, cts/el., noise] image data type 
+1                               ! [switch] use image frame                       
+0.008690
+0.0, 0.0                        ! [pix, pix] image offset in wave frame          
+0.0
+1                               ! coherence model switch (1 ... 5)               
+1,2.500000
+1, 0.2
+1, 1., 'prm\MTF-US2k-300.mtf'
+2,0.051,0.063,0.0
+10
+0.0 0.0 0.0 0.0
+1, 3.1, 0.
+2, -0.0,-0.0 0.
+3, 57.9, 68.9 0.0
+4, 0.0, 25.0 0.0
+5, 0.0, 0.
+6.0 0.0 0.0 0.0
+7.0 0.0 0.0 0.0
+8.0 0.0 0.0 0.0
+9.0 0.0 0.0 0.0
+2500.0 ,0.03 
+0., 0.                          ! [mrad] image objective aperture center         
+0                               ! number of parameter loops 
+ 

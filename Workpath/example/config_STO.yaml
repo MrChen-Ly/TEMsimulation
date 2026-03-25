@@ -1,0 +1,36 @@
+# TEM Simulation — STO parameter sweep configuration
+# Used by: setdataforSTO_autosave.py  and  setdata3.0with_deadline_vibration.py
+
+# ── Paths ─────────────────────────────────────────────────────────────────────
+work_path: "H:\\DrProbe\\SrTiO\\"   # Working directory (must end with backslash)
+slc_name: "STO001Oshift2H"                    # Slice/CIF name (used for .prm and output filenames)
+
+# ── Image dimensions (pixels) ─────────────────────────────────────────────────
+width: 89
+height: 90
+
+# ── Slice thickness — used to convert Tk(nm) → slice index ───────────────────
+# setdataforSTO_autosave.py uses slice_thickness_nm directly.
+# setdata3.0with_deadline_vibration.py uses z_nm / z_slices (= slice_thickness_nm).
+slice_thickness_nm: 0.09758   # = z_nm / z_slices
+z_nm: 0.3885                   # Total cell c length (nm)
+z_slices: 4                  # Number of slices along z
+
+# ── Parameter sweep ranges ────────────────────────────────────────────────────
+# Each entry: [start, end, step]
+# A single value can be expressed as [value, value, 1] or just [value]
+
+Cs:    { start: 0, end: 0, step: 3.75  }   # Spherical aberration (um)
+Df:    { start: 3.125, end: 3.125, step: 3.125  }   # Defocus (nm)
+Tk:    { start: 1, end: 1, step: 3  }   # Thickness (nm)
+Tilt:  { start: 7.5, end: 7.5, step: 1.25  }   # Tilt magnitude (mrad)
+Tilta: { start: 45, end: 45, step: 45   }   # Tilt angle (deg)
+A1:    { start: 0, end: 0, step: 0.625  }   # 2-fold astigmatism magnitude (nm)
+A1a:   { start: 270, end: 270, step: 45  }   # 2-fold astigmatism angle (deg)
+A2:    { start:  25 ,  end: 25 ,  step: 15  }   # 3-fold astigmatism magnitude (nm)
+A2a:   { start:  90 ,  end: 90 ,  step: 60  }   # 3-fold astigmatism angle (deg)
+B2:    { start:  90 ,  end: 90 ,  step: 30  }   # Coma magnitude (nm)
+B2a:   { start:  50 ,  end: 50 ,  step: 60  }   # Coma angle (deg)
+Sod:   { start: 2.5, end: 2.5, step: 0.5  }   # Source diameter (nm)
+virbx: { start: 0.001, end: 0.051, step: 0.0125  }   # Vibration x (nm)
+virby: { start: 0.013, end: 0.063, step: 0.0125  }   # Vibration y (nm)

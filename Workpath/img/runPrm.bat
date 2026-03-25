@@ -1,9 +1,9 @@
-cd C:/Users/chen/githubclone/clonefolder/TEMsimulationUI/Workpath
-C:
-Buildcell --cif=cif\SrTiO3.cif --output=cel\SrTiO3.cel
-cellmuncher -f cel\SrTiO3.cel -o cel\SrTiO31.cel  -B Sr,0.005 -B Ti,0.005 -B  O,0.0110803  --cif --override
-CellMuncher -f cel\SrTiO31.cel -o cel\SrTiO315.cel --repeat=x,1 --repeat=y,1 --cif
-celslc -cel cel\SrTiO315.cel -slc slc\SrTiO3 -nx 90 -ny 90 -nz 2 -ht 300. -abs -dwf
-md img\SrTiO3
-msa -prm prm\msa_SrTiO3.prm -out wav\SrTiO3 /ctem
-wavimg -prm prm\wavimg_SrTiO3.prm /nli
+cd c:\Users\chen\githubclone\clonefolder\TEMsimulationUI\Workpath
+c:
+Buildcell --cif=cif\STO001Oshift2H.cif --output=cel\STO001Oshift2H.cel
+cellmuncher -f cel\STO001Oshift2H.cel -o cel\STO001Oshift2H1.cel  -B Sr,0.0048 -B Ti,0.004 -B  O,0.012 -B  H,0.006  --cif --override
+CellMuncher -f cel\STO001Oshift2H1.cel -o cel\STO001Oshift2H15.cel --repeat=x,2 --repeat=y,2 --cif
+celslc -cel cel\STO001Oshift2H15.cel -slc slc\STO001Oshift2H -nx 178 -ny 180 -nz 4 -ht 300. -abs -dwf
+md img\STO001Oshift2H
+msa -prm prm\msa_STO001Oshift2H.prm -out wav\STO001Oshift2H /ctem
+wavimg -prm prm\wavimg_STO001Oshift2H.prm /nli

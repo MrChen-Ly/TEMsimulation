@@ -1,0 +1,88 @@
+# TEM Simulation Configuration (Dr.Probe)
+# Edit the parameters below, then run: python TEMsimulation5.py
+
+# ── Paths ─────────────────────────────────────────────────────────────────────
+work_path: "H\\TEM\\workpath"          # Working directory (must end with a backslash)
+sub_folder: "STO001Oshift2H"             # Sub-folder name under img/ (output destination)
+cif_name: "STO001Oshift2H"               # CIF filename (without extension)
+cel_name: "STO001Oshift2H"               # CEL filename (without extension)
+
+# ── Simulation type ───────────────────────────────────────────────────────────
+# 1 = single image (fixed thickness)
+# 2 = thickness series
+# 3 = defocus series / tilt series
+work_type: 1
+
+# ── Crystal structure ─────────────────────────────────────────────────────────
+cell_a: 3.87514        # Unit cell parameter a (Angstrom)
+cell_b: 3.892        # Unit cell parameter b (Angstrom)
+cell_c: 3.885        # Unit cell parameter c (Angstrom)
+repeat_x: 2         # Supercell repeat count along x
+repeat_y: 2         # Supercell repeat count along y
+slice_number: 4     # Number of slices along z
+
+# ── Defocus range (nm) ────────────────────────────────────────────────────────
+defocus_min: 4.5
+defocus_step: 1.0
+defocus_max: 6.5
+
+# ── Thickness range (nm) ──────────────────────────────────────────────────────
+thickness_min: 5.5
+thickness_step: 1.0
+thickness_max: 8.5
+
+# ── Aberration parameters ─────────────────────────────────────────────────────
+A1: "1.0,74.0"          # 2-fold astigmatism: magnitude (nm), angle (deg)
+coma: "20.0,260.0"      # Coma: magnitude (nm), angle (deg)
+A2: "20.0,300.0"        # 3-fold astigmatism: magnitude (nm), angle (deg)
+Cs: -10000.0            # Spherical aberration coefficient (nm)
+Oapx: 2500.0             # Objective aperture semi-angle (mrad)
+vibration_x: 0.025      # Vibration x (nm)
+vibration_y: 0.025      # Vibration y (nm)
+
+# ── Atoms and Debye-Waller factors ────────────────────────────────────────────
+atoms: "Sr,Ti,O,H"                   # Atom species (comma-separated)
+debye_waller: "0.48,0.4,1.2,0.6" # DW factors (Ang^2, same order as atoms)
+
+# ── Detector ──────────────────────────────────────────────────────────────────
+use_mtf: 1              # MTF correction: 1 = on, 0 = off
+
+# ── Tilt parameters ───────────────────────────────────────────────────────────
+tilt_angle: 2.0         # Tilt angle (mrad)
+rotation_angle: 90.0    # Rotation angle (deg)
+
+# ── Other optical parameters ──────────────────────────────────────────────────
+focus_spread: 2.5       # Focus spread (nm)
+semi_convergence: 0.24  # Semi-convergence angle (mrad)
+frame_rotation: 0.0   # Frame rotation (deg)
+sample_rate: 0.008690   # Sampling rate (nm/pixel)
+voltage: 300            # Accelerating voltage (kV)
+
+# ── Image display ─────────────────────────────────────────────────────────────
+# color_type 1 = color gradient (black-blue-green-red-yellow-white), 0 = grayscale
+color_type: 1
+# show_image: true pops up a matplotlib preview window after simulation
+show_image: true
+
+# ── Tilt loop scan (used only when tilt_loop.run is true) ─────────────────────
+tilt_loop:
+  begin: 0.0       # Start angle (deg)
+  increment: 10.0  # Step angle (deg)
+  end: 360.0       # End angle (deg)
+  run: false       # Set to true to run the tilt loop
+
+# ── Aberration loop scan (used only when aberration_loop.run is true) ─────────
+aberration_loop:
+  run: false          # Set to true to run the aberration loop
+  type: 1             # 1 = A1, 2 = A2, 3 = B2, 4 = defocus
+  scan_mode: "length" # "length" or "angle"
+  # length scan mode
+  length_begin: 0.0
+  length_step: 1.0
+  length_end: 10.0
+  angle_fixed: 74.0   # Fixed angle (deg) used in length scan
+  # angle scan mode
+  length_fixed: 1.0   # Fixed magnitude (nm) used in angle scan
+  angle_begin: 0.0
+  angle_step: 10.0
+  angle_end: 360.0

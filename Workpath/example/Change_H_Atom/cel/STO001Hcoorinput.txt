@@ -1,0 +1,39 @@
+
+#======================================================================
+# CRYSTAL DATA
+#----------------------------------------------------------------------
+data_VESTA_phase_1
+
+_chemical_name_common                  'Unit'
+_cell_length_a                         3.875140
+_cell_length_b                         3.892000
+_cell_length_c                         3.885000
+_cell_angle_alpha                      90.000000
+_cell_angle_beta                       90.000000
+_cell_angle_gamma                      90.000000
+_cell_volume                           58.593743
+_space_group_name_H-M_alt              'P 1'
+_space_group_IT_number                 1
+
+loop_
+_space_group_symop_operation_xyz
+   'x, y, z'
+
+loop_
+   _atom_site_label
+   _atom_site_occupancy
+   _atom_site_fract_x
+   _atom_site_fract_y
+   _atom_site_fract_z
+   _atom_site_adp_type
+   _atom_site_U_iso_or_equiv
+   _atom_site_type_symbol
+   1O         1.0     0.494703     1.008021     0.000000    Uiso  1.299630 O
+   2O         1.0    -0.007066     0.512979     0.000000    Uiso  1.599665 O
+   3O         1.0     0.500000     0.500000     0.500000    Uiso  1.599665 O
+   4Ti        1.0     0.500000     0.500000     0.000000    Uiso  0.400311 Ti
+   5Sr        1.0     0.000000     0.999578     0.500000    Uiso  0.480058 Sr
+   6H         2.0     0.730800     0.602600     0.300000    Uiso  0.050000 H
+   7H         0.0     0.320500     0.923100     0.800000    Uiso  0.050000 H
+   8H         2.0     0.205000     0.077000     0.300000    Uiso  0.050000 H
+   9H         0.0     0.897400     0.320500     0.200000    Uiso  0.050000 H
