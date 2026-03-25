@@ -1,6 +1,6 @@
 # AI-Assisted NCS-TEM Iterative Refinement Method
 
-A computer-aided negative-Cs (NCS) TEM simulation and parameter optimisation pipeline built on top of [Dr.Probe](https://er-c.org/barthel/drprobe/).
+A computer-aided negative-Cs (NCS) TEM simulation and parameter optimisation pipeline interfaces with [Dr.Probe](https://er-c.org/barthel/drprobe/).
 The system automates the traditionally manual process of matching simulated images to experimental NCS-TEM data by combining exhaustive grid optimisation with iterative range narrowing, progressively converging all 14 microscope and sample parameters towards the experimental optimum.
 
 ---
