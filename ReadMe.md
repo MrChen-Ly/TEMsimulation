@@ -1,41 +1,277 @@
+# TEM Iterative Refinement Pipeline
 
-这是一个基于Drprobe程序的TEM模拟UI界面拓展包
-=======
-这里将介绍如何使用这个拓展程序进行TEM模拟参数的设置与使用
-----
-1.获取Dr.Probe 程序包
--------
-访问[Dr.probe官网](https://er-c.org/barthel/drprobe/drprobe-download.html)下载Dr.probe package Command-line tools <br>
+An automated negative-Cs TEM simulation and parameter optimisation system built on top of [Dr.Probe](https://er-c.org/barthel/drprobe/).
+Through iterative grid-search over 14 microscope parameters, the pipeline converges simulated images towards experimental data by maximising the Structural Similarity Index (SSIM).
 
-2.将Dr.Probe 程序加载至系统文件夹
--------
-将下载的Dr.probe 程序包中的程序组件（Buildcell.exe; CellMuncher.exe; celslc.exe; msa.exe; wavimg.exe）<br>
-复制到系统文件夹中（路径一般为：C:\Windows\System32）也可以通过在菜单栏中找到命令行程序cmd.exe所在的文件夹位置找到系统路径
+---
 
-3.创建工作路径文件夹
------
-将Workpath文件夹拷贝到你的工作文件夹路径中，后续的模拟数据结果都将保存在这个文件夹中<br>
- * -cif 文件夹用于保存你的原始结构模拟数据；<br>
-   		注意: cif文件中的Label需要同时标注上元素符号， 例如：Dy1 ；否则模拟过程中可能报错
- * -cel 文件夹用于保存通过buildcell.exe生成的cel文件,并用于后续切片模拟<br>
-      注意: 当出现celslc.exe报错时,一般首先检查cel文件夹中的文件是否有效 <br>
- * -slc 文件夹用于保存你的slc文件<br>
- * -wav 文件夹用于保存你的波函数文件<br>
- * -img 文件夹用于保存最终生成的图像,一般是.dat格式,可以使用dat2tif.exe转换为tif格式<br>
- * -prm 文件夹用于保存你当前模拟使用的参数文件<br>
-     具体的相关详细信息可以在dr.probe官网介绍中了解<br>
- * -exe 文件夹保存有所有的拓展程序包<br>
+## Table of Contents
 
-4.运行模拟主程序
-------
- * 1.将你需要进行模拟的cif文件放置在workpath\cif文件夹中
- * 2.运行workpath\exe文件夹中的TEM_contral0104.exe文件
- * 3.点击菜单栏中的“文件”中的“打开”
- * 4.选择cif文件夹中需要进行模拟的cif文件
- * 5.等待程序运行，出现读取到的a，b，c的取值
- * 6.点击“运行”，进行参数设置
- * 7.参数列表如图所示：<br>
-   分为文件命名部分：<br>
-   workpath:文件路径，默认为cif文件所在路径；<br>sub_workfolder：img文件夹中的子文件夹名称，默认为cif文件名。<br>cif_name:cif文件的名称<br>doc——name of save：文件保存是的命名，默认为cif文件名称
- * 
+- [Overview](#overview)
+- [Installation](#installation)
+- [Repository Structure](#repository-structure)
+- [Configuration](#configuration)
+- [Running the Pipeline](#running-the-pipeline)
+- [Output Files](#output-files)
+- [Key Parameters](#key-parameters)
+- [Demo](#demo)
+- [Users Without a Coding Background](#users-without-a-coding-background)
+- [Acknowledgements](#acknowledgements)
+- [Authors](#authors)
 
+---
+
+## Overview
+
+This project extends the Dr.Probe electron-microscopy simulation package with the following capabilities:
+
+1. **Negative-Cs TEM simulation** — instrument parameters are set via `config.yaml`; the Dr.Probe toolchain generates an initial simulated image.
+2. **14-parameter grid search** — systematic sweep over spherical aberration, defocus, sample thickness, beam tilt, higher-order aberrations, and vibration.
+3. **Image alignment and SSIM comparison** — each simulated image is rigidly aligned to the experimental reference via phase correlation before SSIM is computed, ensuring a fair comparison.
+4. **Automatic parameter convergence** — parameters are refined in rotating groups; after each iteration the search range is halved around the best-SSIM value, progressively narrowing towards the experimental optimum.
+
+---
+
+## Installation
+
+### 1. Download Dr.Probe
+
+Download the Dr.Probe package from the official website:
+
+```
+https://er-c.org/barthel/drprobe/
+```
+
+Extract the executables (`wavimg.exe`, `msa.exe`, `celslc.exe`, etc.) and place them in:
+
+```
+system/win32/
+```
+
+Make sure this directory is added to the system `PATH` so the executables can be called directly from the command line.
+
+### 2. Set Up the Working Directory
+
+Copy the `workpath/` folder from this repository to your local machine. It contains the directory structure and `.prm` template files required by Dr.Probe:
+
+```
+workpath/
+├── prm/            ← Dr.Probe parameter file templates (msa_*.prm, wavimg_*.prm)
+├── slc/            ← Output directory for slice files
+├── cel/            ← Output directory for unit-cell files
+├── wav/            ← Output directory for wave-function files (msa)
+├── img/
+│   └── 1/
+│       └── dat/    ← Simulated image output per iteration (auto-created)
+├── cif/
+│   └── SrTiO3.cif  ← Atomic structure model corresponding to the experiment
+└── example/
+    └── ref.jpg     ← Place your experimental reference image here
+```
+
+### 3. Install Python Dependencies
+
+```bash
+pip install numpy pyyaml scikit-image opencv-python matplotlib seaborn pandas tqdm tifffile
+```
+
+Python ≥ 3.8 is required.
+
+---
+
+## Repository Structure (Demo)
+
+```
+example/
+├── main.py                                        ← One-click pipeline entry point
+├── Step1_TEMsimulation5.py                        ← Step 1: initial parameter test simulation
+├── Step2_setdata3.0with_deadline_vibration.py     ← Step 2: 14-parameter grid simulation
+├── Step3_imagecompare_ssim_value4.0.py            ← Step 3: image alignment and SSIM calculation
+├── Step4_ssim_dashboard.py                        ← Step 4: SSIM visualisation dashboard
+├── config.yaml                                    ← Step 1 instrument parameters
+├── config_STO.yaml                                ← Steps 2–5 sweep ranges (auto-written at startup)
+├── pipeline_state.json                            ← Auto-generated; stores best-known parameter values
+└── ReadMe.md
+```
+
+---
+
+## Configuration
+
+### `config.yaml` (Step 1 — initial simulation)
+
+Used for a single test simulation to verify that the working directory, slice files, and instrument parameters are correct. Key fields to edit:
+
+| Field | Description |
+|-------|-------------|
+| `work_path` | Absolute path to the Dr.Probe working directory (Windows path, trailing `\\`) |
+| `slc_name` | Crystal slice filename prefix (must match `.prm` file naming) |
+| `voltage` | Accelerating voltage (kV) |
+| `Cs` | Spherical aberration coefficient (μm; negative for negative-Cs mode) |
+| `defocus` | Defocus value (nm) |
+
+### `config_STO.yaml` (Steps 2–5 — grid sweep)
+
+**Parameter ranges are written automatically at startup** — no manual editing required. The following path fields must be filled in manually:
+
+```yaml
+work_path:  "H:\\DrProbe\\SrTiO\\"   # Working directory (must match config.yaml)
+slc_name:   "SrTiO"                   # Crystal filename prefix
+width:   89                            # Simulated image width (pixels)
+height:  90                            # Simulated image height (pixels)
+z_nm:    0.3885                        # Total unit-cell length along c (nm)
+z_slices: 4                            # Number of slices along z
+```
+
+### `Step3_imagecompare_ssim_value4.0.py` — top-of-file parameters
+
+Edit before running:
+
+```python
+REFERENCE_IMAGE = r"C:\TEM\experiment\ref.jpg"  # Path to experimental reference image
+DATA_FOLDER     = r"C:\TEM\img\dat"             # Directory containing simulated .dat files
+IMAGE_WIDTH     = 89                             # Simulated image width (must match config_STO)
+IMAGE_HEIGHT    = 90                             # Simulated image height
+COMPARE_WIDTH   = 59                             # Crop width used for SSIM comparison
+COMPARE_HEIGHT  = 59                             # Crop height used for SSIM comparison
+```
+
+---
+
+## Running the Pipeline
+
+```bash
+cd /.../Workpath/example
+python main.py
+```
+
+The pipeline executes automatically without any further user input:
+
+```
+Step 1  Initial simulation test
+        Verifies working directory, .prm files, and instrument parameters
+        ↓
+INIT    Write physical parameter bounds to config_STO.yaml
+        Step sizes are auto-computed; Group 0 parameters are activated
+        ↓
+Iterations 1–6  (one full group cycle every 3 iterations):
+  Step 2  Grid simulation
+          Only the active group is swept; the other 10 parameters are fixed
+          at their current best-known values
+  Step 3  SSIM calculation
+          Each simulated image is phase-correlation-aligned to the reference,
+          cropped to the same size, then SSIM is computed
+  Step 4  Visualisation
+          1D SSIM-vs-parameter curves and 2D heatmaps are generated and saved
+  Step 5  Range narrowing
+          Best-SSIM parameter values are identified; the active group's search
+          range is halved and the step size halved for the next iteration
+        ↓
+FINAL   ssim_progression.png — cross-iteration SSIM improvement summary
+```
+
+### Group-Rotation Strategy
+
+14 parameters are split into 3 groups. Only one group is swept per iteration, avoiding the combinatorial explosion of a full grid search (5 points × 14 parameters = 5¹⁴ ≈ 6 billion combinations):
+
+| Group | Parameters | Typical combinations | Time (@ 10 img/s) |
+|-------|-----------|----------------------|-------------------|
+| Group 1 | Cs, Df, Tk, Tilt, Tilta | ≈ 5,625 | ~9 min |
+| Group 2 | A1, A1a, A2, A2a | ≈ 2,025 | ~3 min |
+| Group 3 | B2, B2a, Sod, virbx, virby | ≈ 225 | < 1 min |
+
+Six iterations take approximately **1–2 hours** in total; each group undergoes two rounds of progressive refinement.
+
+---
+
+## Output Files
+
+```
+workpath/
+└── img/
+    ├── 1/dat/
+    │   ├── *.dat                  ← All simulated images from iteration 1 (float32 binary)
+    │   ├── ssim_values.txt        ← One line per simulation: [param list..., SSIM]
+    │   └── facebake_borad/
+    │       ├── 1d_Cs.png          ← 1D SSIM-vs-parameter curves
+    │       ├── summary_1d_grid.png← Summary grid of all parameters
+    │       ├── 2d_Cs_vs_Df.png    ← 2D SSIM heatmaps for parameter pairs
+    │       └── best_parameters.txt← Best parameter combination and SSIM for this iteration
+    ├── 2/dat/ …
+    ├── …
+    └── ssim_progression.png       ← Cross-iteration SSIM improvement summary
+pipeline_state.json                ← Current best-known values and initial ranges (auto-maintained)
+```
+
+### How to Read `ssim_progression.png`
+
+Each panel corresponds to one iteration; the x-axis is the simulation rank sorted by SSIM (ascending):
+
+- **Grey thin line** — all simulations from this iteration
+- **Coloured thick line** — only simulations that exceed the previous iteration's best SSIM (the improvement)
+- **Red dashed line** — previous iteration's best SSIM (the threshold this iteration must surpass)
+- **Dot + annotation** — best SSIM achieved in this iteration
+
+As iterations progress, the coloured line should shift upward, indicating effective parameter convergence.
+
+---
+
+## Key Parameters
+
+All located at the top of `main.py`; changes take effect immediately on the next run:
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `MAX_ITERATIONS` | 6 | Total iterations; recommended to be a multiple of 3 |
+| `MAX_POINTS_PER_PARAM` | 5 | Max discrete values per active parameter per iteration; controls total combination count |
+| `ANGLE_STEP_DEG` | 45 | Step size for angle parameters (°); larger = faster but coarser |
+| `PHYSICAL_RANGES` | see below | Physical bounds for each parameter; auto-written to config on startup |
+
+**Default physical ranges:**
+
+| Parameter | Range | Unit |
+|-----------|-------|------|
+| `Cs` | −15 to −10 | μm |
+| `Df` | 0 to 5 | nm |
+| `Tk` | 1 to 5 | nm |
+| `Tilt` | 0 to 5 | mrad |
+| `Tilta` | 0 to 360 | ° |
+| `A1` | 0 to 1 | nm |
+| `A1a` | 0 to 360 | ° |
+| `A2` | 50 to 100 | nm |
+| `A2a` | 0 to 360 | ° |
+| `B2` | 50 to 100 | nm |
+| `B2a` | 0 to 360 | ° |
+| `Sod` | 2.5 (fixed) | nm |
+| `virbx` | 0 to 0.05 | nm |
+| `virby` | 0 to 0.05 | nm |
+
+---
+
+## Demo
+
+The `example/` directory contains a ready-to-run demonstration. To keep runtime short and make it easy to verify the setup, the demo uses **reduced parameter ranges and fewer iterations**. It is intended for confirming that the environment is configured correctly and does not represent the full search precision required for real experimental data.
+
+### H-Atom Position Refinement
+
+`example/Hchange/` provides an example of structural refinement focused on H-atom positions. This can be run after the main parameter convergence to further optimise atomic coordinates.
+
+---
+
+## Users Without a Coding Background
+
+For users who prefer not to work with code, a complete GUI-based simulation program is available, packaged as a standalone `.exe` file — no Python installation required. See **[TEMsimulation_SOP.md](TEMsimulation_SOP.md)** for full instructions.
+
+The super-resolution imaging and in-depth structural refinement presented in the associated publication were performed by group members using this GUI software. Technical details are provided in the Methods section of the paper.
+
+---
+
+## Acknowledgements
+
+We thank **Juri Barthel** for technical support with the Dr.Probe simulation package; **Zhanqi** for suggestions on the initial code design; and **Zhiyao Liang** and **Feng Liu** for user feedback during test runs and debugging.
+
+---
+
+## Authors
+
+**Linyuan Chen**, **Xian-Kui Wei**
