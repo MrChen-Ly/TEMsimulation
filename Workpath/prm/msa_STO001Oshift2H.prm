@@ -10,8 +10,8 @@
 7                         ! focus spread kernel samples             ! STEM only! 10
 0                         ! number of probe aberrations             ! STEM only! 11
 '[Multislice Parameters]'!! 12
-0.303857
-0.303857
+0.071620
+0.000000
 0.0                       ! [nm] horizontal scan frame offset       ! STEM only! 15
 0.0                       ! [nm] vertical scan frame offset         ! STEM only! 16
 1.0                       ! [nm] horizontal scan frame size         ! STEM only! 17

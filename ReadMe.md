@@ -13,8 +13,6 @@ The system automates the traditionally manual process of matching simulated imag
 - [Output Files](#output-files)
 - [Key Parameters](#key-parameters)
 - [Demo](#demo)
-- [Repository Structure](#repository-structure)
-- [Running the Pipeline](#running-the-pipeline)
 - [H-Atom Position Refinement](#H-Atom-Position-Refinement)
 - [Users Without a Coding Background](#users-without-a-coding-background)
 - [Acknowledgements](#acknowledgements)
@@ -229,7 +227,7 @@ example/
 └── ReadMe.md
 ```
 
-## Running the Demo
+## Running
 
 ```bash
 cd /.../Workpath/example
