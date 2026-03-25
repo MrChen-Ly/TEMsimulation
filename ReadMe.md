@@ -282,3 +282,12 @@ We thank **Juri Barthel** for technical support with the Dr.Probe simulation pac
 ## Authors
 
 **Linyuan Chen**, **Xian-Kui Wei**
+
+---
+## Patent Notice
+
+The method implemented in this repository is covered by a patent.
+
+Permission is granted to use this code for academic and research purposes only.
+
+Commercial use requires explicit permission from the author.
