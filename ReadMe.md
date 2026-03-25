@@ -1,7 +1,7 @@
-# TEM Iterative Refinement Pipeline
+# AI-Assisted NCS-TEM Iterative Refinement Method
 
-An automated negative-Cs TEM simulation and parameter optimisation system built on top of [Dr.Probe](https://er-c.org/barthel/drprobe/).
-Through iterative grid-search over 14 microscope parameters, the pipeline converges simulated images towards experimental data by maximising the Structural Similarity Index (SSIM).
+A computer-aided negative-Cs (NCS) TEM simulation and parameter optimisation pipeline built on top of [Dr.Probe](https://er-c.org/barthel/drprobe/).
+The system automates the traditionally manual process of matching simulated images to experimental NCS-TEM data by combining exhaustive grid optimisation with iterative range narrowing, progressively converging all 14 microscope and sample parameters towards the experimental optimum.
 
 ---
 
@@ -24,12 +24,19 @@ Through iterative grid-search over 14 microscope parameters, the pipeline conver
 
 ## Overview
 
-This project extends the Dr.Probe electron-microscopy simulation package with the following capabilities:
+Accurate interpretation of NCS-TEM images requires precise knowledge of numerous interdependent microscope and specimen parameters. Manual trial-and-error adjustment of these parameters is time-consuming and prone to bias. This pipeline addresses the problem through a fully automated, computer-aided optimisation workflow.
 
-1. **Negative-Cs TEM simulation** — instrument parameters are set via `config.yaml`; the Dr.Probe toolchain generates an initial simulated image.
-2. **14-parameter grid search** — systematic sweep over spherical aberration, defocus, sample thickness, beam tilt, higher-order aberrations, and vibration.
-3. **Image alignment and SSIM comparison** — each simulated image is rigidly aligned to the experimental reference via phase correlation before SSIM is computed, ensuring a fair comparison.
-4. **Automatic parameter convergence** — parameters are refined in rotating groups; after each iteration the search range is halved around the best-SSIM value, progressively narrowing towards the experimental optimum.
+The system extends the Dr.Probe electron-microscopy simulation package with the following capabilities:
+
+1. **Negative-Cs TEM simulation** — instrument parameters are set via `config.yaml`; the Dr.Probe toolchain (`msa` + `wavimg`) generates simulated exit-wave and image output for a given parameter set.
+
+2. **Structured 14-parameter grid optimisation** — rather than performing a single exhaustive search over the full 14-dimensional parameter space (which would require 5¹⁴ ≈ 6 billion simulations), the pipeline uses a **group-rotation grid strategy**: parameters are divided into three physically motivated groups and swept one group at a time. Within each group, a dense grid of candidate values is evaluated, producing a thorough, unbiased sampling of that subspace while keeping computation tractable.
+
+3. **Automated image alignment and SSIM-based scoring** — each simulated image is automatically registered to the experimental reference via phase-correlation alignment before the Structural Similarity Index (SSIM) is computed, removing manual cropping and alignment bias from the comparison.
+
+4. **Iterative range narrowing** — after each group sweep, the pipeline identifies the parameter values that maximise SSIM and automatically halves the search range around that optimum. This coarse-to-fine refinement strategy efficiently concentrates computation in the most promising region of parameter space, converging towards the global optimum over successive iterations without requiring any user intervention.
+
+5. **Convergence visualisation** — SSIM trends across all iterations are plotted automatically, providing a clear record of parameter convergence and a direct visual measure of simulation quality improvement.
 
 ---
 
@@ -171,9 +178,11 @@ Iterations 1–6  (one full group cycle every 3 iterations):
 FINAL   ssim_progression.png — cross-iteration SSIM improvement summary
 ```
 
-### Group-Rotation Strategy
+### Group-Rotation Grid Strategy
 
-14 parameters are split into 3 groups. Only one group is swept per iteration, avoiding the combinatorial explosion of a full grid search (5 points × 14 parameters = 5¹⁴ ≈ 6 billion combinations):
+A naive full grid search over all 14 parameters simultaneously is computationally intractable (5 points × 14 parameters = 5¹⁴ ≈ 6 billion simulations). The pipeline solves this by decomposing the parameter space into three physically motivated groups, sweeping one group per iteration while holding all other parameters fixed at their current best-known values. This preserves the thoroughness of a grid search within each subspace while reducing each iteration to a manageable size.
+
+14 parameters are split into 3 groups:
 
 | Group | Parameters | Typical combinations | Time (@ 10 img/s) |
 |-------|-----------|----------------------|-------------------|
