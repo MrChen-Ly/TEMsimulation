@@ -261,7 +261,7 @@ The `example/` directory contains a ready-to-run demonstration. To keep runtime 
 
 ## Users Without a Coding Background
 
-For users who prefer not to work with code, a complete GUI-based simulation program is available, packaged as a standalone `.exe` file — no Python installation required. See **[TEMsimulation_SOP.md](TEMsimulation_SOP.md)** for full instructions.
+For users who prefer not to work with code, a complete GUI-based simulation program is available, packaged as a standalone `.exe` file**[exe](https://github.com/MrChen-Ly/TEMsimulationUI/Workpath/exe)**  — no Python installation required. See **[TEMsimulation_SOP.md](https://github.com/MrChen-Ly/TEMsimulationUI/Workpath/exe/TEMsimulation_UI.md)** for full instructions.
 
 The super-resolution imaging and in-depth structural refinement presented in the associated publication were performed by group members using this GUI software. Technical details are provided in the Methods section of the paper.
 
